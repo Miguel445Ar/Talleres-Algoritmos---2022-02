@@ -36,3 +36,7 @@
 <li>Selection Sort</li>
 <li>Using stack data structure instead of recursion</li>
 <li><a href="https://leetcode.com/problems/basic-calculator/">Basic Calculator</a></li>
+
+## Files (bin,txt)
+## Recursion (exercises)
+## Big O Notation
