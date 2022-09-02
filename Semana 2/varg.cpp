@@ -30,8 +30,11 @@ void __cdecl myPrintf(const char* buffer,...) {
 }
 
 int main() {
+
+    void (*ptr)(const char*,...);
+    ptr = myPrintf;
     char n = 19;
-    printf("");
-    myPrintf("Mi nombre es %s y mi edad es %f, %d, %s, %m", "Miguel", 19.5, 8, "XDDD",&n);
+    //printf_s("");
+    ptr("Mi nombre es %s y mi edad es %f, %d, %s, %m", "Miguel", 19.5, 8, "XDDD",&n);
     return 0;
 }
