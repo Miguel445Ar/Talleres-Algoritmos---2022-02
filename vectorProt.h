@@ -4,7 +4,8 @@
 #include <functional>
 #include <vector>
 
-#define __VERSION__ 0
+#define __VERSION__ 2
+
 
 namespace AED {
     #if __VERSION__ == 1
@@ -31,8 +32,9 @@ namespace AED {
     #if __VERSION__ == 2
         template<class T>
         class Vector {
+            using DeleterFunc = void (*)(T);
         public:
-            Vector(void (*deleter)(T) = nullptr);
+            Vector(DeleterFunc = nullptr);
             ~Vector();
             Vector(size_t size,void (*deleter)(T) = nullptr);
             void pushBack(T value);
@@ -44,13 +46,13 @@ namespace AED {
         private:
             struct Entity {
                 T value;
-                void (*deleter)(T);
-                Entity(T value, void (*deleter)(T) = nullptr): value(value), deleter(deleter) {}
+                DeleterFunc deleter;
+                Entity(T value, DeleterFunc = nullptr): value(value), deleter(deleter) {}
                 ~Entity();
             };
             size_t _size;
             Entity** _arr;
-            void (*_deleter)(T);
+            DeleterFunc deleter;
         private:
             bool _isFull();
             void _resize();
