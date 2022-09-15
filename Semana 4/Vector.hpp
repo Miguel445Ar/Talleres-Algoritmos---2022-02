@@ -26,7 +26,7 @@ public:
     void popBack() {
         if(_isEmpty()) throw "Vector is empty :(";
         if(_deleter) _deleter(this->_arr[_size - 1]);
-        --size;
+        --_size;
     }
     void insertAt(T value, size_t pos) {
 
@@ -38,7 +38,7 @@ public:
         T* newArr = new T[newSize];
         for(size_t i = 0ll; i < _size; ++i)
             newArr[i] = _arr[i];
-        if(_arr) delete[] arr;
+        if(_arr) delete[] _arr;
         _arr = newArr;
     }
     bool isEmpty() {
@@ -63,7 +63,7 @@ private:
         T* newArr = new T[_capacity];
         for(size_t i = 0ll; i < _size; ++i)
             newArr[i] = _arr[i];
-        if(_arr) delete[] arr;
+        if(_arr) delete[] _arr;
         _arr = newArr;
     }
     bool _isEmpty() {
