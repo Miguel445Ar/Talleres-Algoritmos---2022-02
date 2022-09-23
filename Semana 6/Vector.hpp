@@ -1,7 +1,7 @@
 
 template<class T>
 class Vector {
-    using DeleterFunc = void (*)(T); // Podríamos usar std::function
+    using DeleterFunc = void (*)(T); // Podríamos usar std::function // void (*f)(T);
 public:
     Vector(DeleterFunc deleter = nullptr): _deleter(deleter) {
         this->_arr = nullptr;
@@ -61,6 +61,7 @@ private:
     size_t _size;
     size_t _capacity;
     Entity** _arr;
+    T* arr;
     DeleterFunc _deleter;
 private:
     bool _isFull() {

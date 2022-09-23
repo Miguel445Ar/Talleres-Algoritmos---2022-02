@@ -68,10 +68,22 @@ public:
 
     }
     // Iterador del inicio
-
     // Iterador del final
 
     // Buble Sort
+    void bubleSort(std::function<bool(T,T)> compare) {
+        Node* aux = this->_start;
+        if(aux == nullptr) throw "Cannot sort an empty list";
+        while(aux != this->_end) {
+            if(compare(aux->value,aux->next->value)){
+                this->_swap(aux->value,aux->next->value);
+                if(aux != this->_start)
+                    aux = aux->back;
+                continue;
+            }
+            aux = aux->next;
+        }
+    }
 
     // Selection Sort
 private:
@@ -85,14 +97,42 @@ private:
     Node* _end;
     size_t _size;
     std::function<void(T)> _show;
+private:
+    void _swap(T& a, T& b) {
+        T c = a;
+        a = b;
+        b = c;
+    }
 public:
     class Iterator {
-        // 1. Nodo guía
+    public:
+        Iterator(Node* node): _node(node) {}
         // Sobrecarga ++
+        void operator++(){
+            if(this->_node == nullptr) throw "Cannot move a null node";
+            this->_node = this->_node->next;
+        }
         // Sobrecarga -- (opcional)
         // Sobrecarga *
+        T operator*() {
+            if(this->_node == nullptr) throw "Cannot return value from null pointer";
+            return this->_node->value;
+        }
         // Sobrecarga !=
+        bool operator!=(Iterator other) {
+            return this->_node != other._node;
+        }
+    private:
+        // 1. Nodo guía
+        Node* _node;
     };
+public:
+    Iterator begin() {
+        return Iterator(this->_start);
+    }
+    Iterator end() {
+        return Iterator(nullptr);
+    }
 };
 
 #endif
