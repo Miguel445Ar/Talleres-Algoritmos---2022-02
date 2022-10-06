@@ -59,19 +59,66 @@ public:
         }
     }
     void popBack() {
-
+        if(this->_size == 0) throw "Cannot erase in empty list";
+        if(this->_size == 1) {
+            delete _start;
+            _start = _end = nullptr;
+            _size = 0;
+            return;
+        }
+        _end = _end->back;
+        _end->next->back = nullptr;
+        delete _end->next;
+        _end->next = nullptr;
+        --_size;
     }
     void popFront() {
-        
+        if(this->_size == 0) throw "Cannot erase in empty list";
+        if(this->_size == 1) {
+            delete _start;
+            _start = _end = nullptr;
+            _size = 0;
+            return;
+        }
+        _start = _start->next;
+        _start->back->next = nullptr;
+        delete _start->back;
+        _start->back = nullptr;
+        --_size;
     }
     void eraseAt(int pos) {
+        if(pos < 0 || pos >= _size) throw "Cannot erase out of bounds";
+        if(pos == 0) {
+            popFront();
+            return;
+        }
+        if(pos == _size - 1) {
+            popBack();
+            return;
+        }
+        Node* aux = _start;
+        for(unsigned int i = 0; i < pos - 1; ++i) aux = aux->next;
+        Node* toErase = aux->next;
 
+        aux->next = aux->next->next;
+        aux->next->back = aux->next->back->back;
+
+        toErase->next = toErase->back = nullptr;
+
+        delete toErase;
+        --_size;
     }
-    T getAt(int pos) {
+    void modifyAt(int pos, std::function<void(T&)> modify) {
         if(pos < 0 || pos >= _size) throw "Oye >:V";
         Node* aux = _start;
         for(size_t i = 0; i < pos; ++i) aux = aux->next;
-        return aux->value;
+        modify(aux->value);
+    }
+    bool isEmpty() {
+        return this->_size == 0;
+    }
+    size_t size() {
+        return this->_size;
     }
 private:
     struct Node {
