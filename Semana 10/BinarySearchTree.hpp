@@ -16,6 +16,18 @@ public:
     void preOrder() {
         _preOrder(_root);
     }
+    // Rightmost element
+    T max() {
+        Node* aux = _root;
+        while(aux->rightChild != nullptr) aux = aux->rightChild;
+        return aux->value;
+    }
+    // Leftmost element
+    T min() {
+        Node* aux = _root;
+        while(aux->leftChild != nullptr) aux = aux->leftChild;
+        return aux->value;
+    }
 private:
     struct Node {
         T value;

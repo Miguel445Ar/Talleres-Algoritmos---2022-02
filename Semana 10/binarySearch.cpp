@@ -30,5 +30,8 @@ int main() {
     tree.insert(12);
     tree.insert(10);
     tree.preOrder();
+    std::cout << "\n";
+    std::cout << "\nMaximum element: " << tree.max();
+    std::cout << "\nMinimum element: " << tree.min();
     return 0;
 }
