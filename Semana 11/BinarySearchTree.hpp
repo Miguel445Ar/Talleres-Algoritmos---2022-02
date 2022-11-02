@@ -29,7 +29,7 @@ public:
         return aux->value;
     }
     void roadTree(std::function<void(T)> countInRange) {
-        _road(root,countInRange);
+        _road(_root,countInRange);
     }
 private:
     struct Node {
@@ -59,9 +59,9 @@ private:
     }
     void _road(Node* n, std::function<void(T)> countInRange) {
         if(!n) return;
-        isRange(n->value);
-        _road(n->leftChild);
-        _road(n->rightChild);
+        countInRange(n->value);
+        _road(n->leftChild,countInRange);
+        _road(n->rightChild,countInRange);
     }
 };
 
