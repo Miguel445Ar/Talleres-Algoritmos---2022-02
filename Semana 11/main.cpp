@@ -156,10 +156,10 @@ public:
     }
     void ordenarPorPais() {
         auto compare1 = [](Registro a, Registro b) -> bool  {
-            return a < b;
+            return a > b;
         };
         auto compare2 = [](Registro a, Registro b) -> bool  {
-            return a > b;
+            return a < b;
         };
 
         SortingAlgorithms<Registro>::quickSort(this->datos,compare1,compare2,0,this->datos.size() - 1);
