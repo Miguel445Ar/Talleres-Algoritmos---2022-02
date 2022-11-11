@@ -50,6 +50,8 @@
         "string": "cpp",
         "unordered_map": "cpp",
         "xhash": "cpp",
-        "sstream": "cpp"
+        "sstream": "cpp",
+        "deque": "cpp",
+        "stack": "cpp"
     }
 }
