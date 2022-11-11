@@ -26,6 +26,21 @@ void readFile() {
     arch.close();
 }
 
+struct TreeNode {
+      int val;
+      TreeNode *left;
+      TreeNode *right;
+      TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+  };
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        TreeNode* aux = root;
+        while(p->val < aux->val && q->val < aux->val) aux = aux->left;
+        return aux;
+    }
+};
+
 int main() {
     /*UndirectedGraph<> g(10);
     g.add(0,1,5);
