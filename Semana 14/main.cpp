@@ -71,6 +71,6 @@ int main() {
     std::cout << "\n";
     tree.IterativePreOrder();
     DatasetGenerator ds;
-    ds.generateInFile(10);
+    ds.generateInFile(1000000);
     return 0;
 }
