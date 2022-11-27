@@ -17,7 +17,20 @@ void primeraPregunta() {
     delete t;
 }
 
+void segundaPregunta() {
+    Tree* t = new Tree;
+    ifstream arch("input2.txt");
+    string line;
+    while (getline(arch,line,','))
+        t->insert(stoi(line));
+    t->IterativePreOrder();
+    cout << "\nEl camino más largo es: " << t->encontrarCaminoMasLargo();
+    arch.close();
+    delete t;
+}
+
 int main() {
-    primeraPregunta();
+    //primeraPregunta();
+    segundaPregunta();
     return 0;
 }

@@ -37,6 +37,10 @@ public:
         _modifiedInOrder(this->_root,prev,minDistance);
         return minDistance;
     }
+    int encontrarCaminoMasLargo() {
+        int* results = roadTree(this->_root);
+        return std::max(results[0],results[1]);
+    }
 private:
     struct Node {
         int value;
@@ -111,6 +115,41 @@ private:
             minDistance = std::min(std::abs(n->value - prev->value), minDistance);
         prev = n;
         _modifiedInOrder(n->rightChild,prev,minDistance);
+    }
+    int* roadTree(Node* n) {
+        if(_isLeafNode(n) == true)
+            return new int[2]{0, 0};
+        int* leftResults = (n->leftChild == nullptr)? nullptr: roadTree(n->leftChild);
+        int* rightResults = (n->rightChild == nullptr)? nullptr : roadTree(n->rightChild);
+        if(leftResults != nullptr && rightResults == nullptr) { // Si es que tengo solo a mi hijo izquierdo
+            if(_isLeafNode(n->leftChild) == true) return new int[2]{1,1};
+            if(_hasOneChild(n->leftChild) == true) return new int[2]{leftResults[1] + 1, leftResults[0] + 1};
+            return new int[2]{ leftResults[1] + 1, leftResults[0]};
+        }
+        if(rightResults != nullptr && leftResults == nullptr) { // Si es que tengo solo a mi hijo derecho
+            if(_isLeafNode(n->rightChild) == true) return new int[2]{1,1};
+            if(_hasOneChild(n->rightChild) == true) return new int[2]{rightResults[1] + 1, rightResults[0] + 1};
+            return new int[2]{rightResults[1] + 1,rightResults[0]};
+        }
+        // Si es que tengo a mis dos hijos
+        if(_isLeafNode(n->leftChild) == true || _hasOneChild(n->leftChild) == true) {
+            leftResults[0] += 1;
+            leftResults[1] += 1;
+        } else leftResults[1] += 1;
+        if(_isLeafNode(n->rightChild) == true || _hasOneChild(n->rightChild) == true) {
+            rightResults[0] += 1;
+            rightResults[1] += 1;
+        } else rightResults[1] += 1;
+        return new int[2]{leftResults[1] + rightResults[1], std::max(leftResults[0],rightResults[0])};
+    }
+    bool _isLeafNode(Node* n) {
+        return n->leftChild == nullptr && n->rightChild == nullptr;
+    }
+    bool _hasOneChild(Node* n) {
+        return (n->leftChild != nullptr && n->rightChild == nullptr) || (n->leftChild == nullptr && n->rightChild != nullptr);
+    }
+    bool _hasTwoChilds(Node* n) {
+        return n->leftChild != nullptr && n->rightChild != nullptr;
     }
 };
 #endif
