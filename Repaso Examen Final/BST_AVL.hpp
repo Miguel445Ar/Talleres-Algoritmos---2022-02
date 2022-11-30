@@ -11,6 +11,12 @@ public:
         _root = nullptr;
         _size = 0ll;
     }
+    ~Tree() {
+        /*while(_size > 0) {
+            int rootValue = _root->value;
+            // remove(rootValue);
+        }*/
+    }
     void insert(int value) {
         _insert(_root,value);
     }
@@ -60,7 +66,7 @@ private:
         if(n->value > value) _insert(n->leftChild,value);
         else _insert(n->rightChild,value);
         _setHeight(n);
-        _balanceSubTree(n);
+        //_balanceSubTree(n);
     }
     void _leftRotation(Node*& n){
         Node* rightChild = n->rightChild;
@@ -142,10 +148,10 @@ private:
         } else rightResults[1] += 1;
         return new int[2]{leftResults[1] + rightResults[1], std::max(leftResults[0],rightResults[0])};
     }
-    bool _isLeafNode(Node* n) {
+    bool _isLeafNode(Node* n) { // Si es que es nodo hoja
         return n->leftChild == nullptr && n->rightChild == nullptr;
     }
-    bool _hasOneChild(Node* n) {
+    bool _hasOneChild(Node* n) { // Si es que tiene un solo hijo
         return (n->leftChild != nullptr && n->rightChild == nullptr) || (n->leftChild == nullptr && n->rightChild != nullptr);
     }
     bool _hasTwoChilds(Node* n) {
